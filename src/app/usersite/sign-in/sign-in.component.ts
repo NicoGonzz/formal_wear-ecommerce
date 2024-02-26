@@ -74,6 +74,8 @@ export class SignInComponent {
         }
         alert('Ingreso exitoso');
       });
+
+      
     } else {
       console.log('Ingreso fallido');
     }

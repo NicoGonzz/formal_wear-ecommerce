@@ -1,0 +1,124 @@
+// Mobile
+
+.container {
+    margin: auto;
+  }
+  
+  .stepper {
+    margin-top: 50px !important;
+    width: 90%;
+    margin: auto;
+    padding-bottom: 20px;
+    padding-top: 50px;
+    border-radius: 10px;
+    // box-shadow: -2px 0px 8px 5px rgba(0, 0, 0, 0.11);
+    // -webkit-box-shadow: -2px 0px 8px 5px rgba(0, 0, 0, 0.11);
+    // -moz-box-shadow: -2px 0px 8px 5px rgba(0, 0, 0, 0.11);
+    .mat-mdc-form-field-error{
+      color:red;
+    }
+    --mdc-filled-text-field-error-active-indicator-color: red;
+    --mdc-filled-text-field-error-label-text-color: red;
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        padding: 20px;
+    }
+  }
+  .Form-Titles{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: #010a44;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  
+    @media only screen and (min-width: 600px) {
+        flex-direction: row;
+    }
+  }
+  
+  .input {
+    width: 100%;
+    margin: 10px 0;
+  
+    @media only screen and (min-width: 600px) {
+        width: 400px;
+        margin: auto;
+    }
+  }
+  
+  .btn {
+    width: 100%;
+    margin: 10px 0;
+  
+    @media only screen and (min-width: 600px) {
+        width: 200px;
+        margin: auto;
+    }
+  }
+  
+  .input-file {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  
+    @media only screen and (min-width: 600px) {
+        flex-direction: row;
+        margin-bottom: 30px;
+    }
+  }
+  
+  .form-check{
+    margin-bottom: 10px;
+  
+    span {
+      cursor: pointer;
+      text-align: justify;
+      color: rgb(96, 96, 106);
+    }
+  }
+  
+  .btn-file {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+    @media only screen and (min-width: 600px) {
+        width: 50%;
+        margin-bottom: 30px;
+        margin-bottom: 0;
+    }
+  }
+  
+  .submit-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+        background-color: #010a44;
+        margin:  0 0 10px;
+        color: white;
+        @media only screen and (min-width: 600px) {
+            width: 200px;
+            margin-top: 15px;
+            margin: 0 0 10px;
+        }
+    }
+    @media only screen and (min-width: 600px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+  }
+  
+  // Tablet
+  @media only screen and (min-width: 700px) {}
+  
+  // PC
+  
+  @media only screen and (min-width: 1000px) {}
+  

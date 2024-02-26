@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DocumentType } from '../../interfaces/documentType.interface';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,6 +27,7 @@ import { Router } from '@angular/router';
     MatSidenavModule,
     MatStepperModule,
     MatSelectModule,
+    HttpClientModule
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
@@ -53,6 +55,7 @@ export class SignUpComponent {
     phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
   });
   this.formPassword = this.formBuilder.group({
+    user: ['', [Validators.required,Validators.minLength(5)]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     secondpassword: ['', [Validators.required, Validators.minLength(8)]],
   });
@@ -65,14 +68,10 @@ export class SignUpComponent {
   this.errorMessage = 'El campo es requerido.';
 }
 
-public isFormInvalid() {
+public isFormInvalid():boolean {
   const passwordControl = this.formPassword.get('password')?.value;
   const secondPasswordControl = this.formPassword.get('secondpassword')?.value;
-  const validatePassword = (secondPasswordControl === passwordControl);
-  return (
-    this.formPassword.valid &&
-    validatePassword
-  );
+  return !(this.formPassword.valid && passwordControl === secondPasswordControl);
 }
 
 public togglePasswordVisibility() {
@@ -84,12 +83,19 @@ public redirectTo(page: string): void {
  }
 
  public saveFormData(){
-      name: String(this.formSignUpInformation.value.name);
-      lastName: String(this.formSignUpInformation.value.lastname);
-      email: String(this.formSignUpInformation.value.email);
-      phone: String(this.formSignUpInformation.value.phone);
-      password: String(this.formPassword.value.password);
-      documentType: String(this.formSignUpInformation.value.documentType);
-      documentNumber: String(this.formSignUpInformation.value.documentNumber);
- }
+  if (this.formSignUpInformation.valid && this.formPassword.valid) {
+    const userData = {
+      name: this.formSignUpInformation.value.name,
+      lastName: this.formSignUpInformation.value.lastname,
+      email: this.formSignUpInformation.value.email,
+      phone: this.formSignUpInformation.value.phone,
+      documentType: this.formSignUpInformation.value.documentType,
+      documentNumber: this.formSignUpInformation.value.documentNumber,
+      user: this.formPassword.value.user,
+      password: this.formPassword.value.password
+    };
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }
+}
+
 }

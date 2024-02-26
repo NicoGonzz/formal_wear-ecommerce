@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
 import { UsersiteComponent } from './usersite/usersite.component';
-import { Component } from '@angular/core';
 import { SignInComponent } from './usersite/sign-in/sign-in.component';
 import { SignUpComponent } from './usersite/sign-up/sign-up.component';
 
 export const routes: Routes = [
+    {
+        path: '',  
+        redirectTo: 'sign-up',  
+        pathMatch: 'full',  
+    },
     {
         path: 'usersite', //canActivate: [permissionsGuard],
         component: UsersiteComponent,

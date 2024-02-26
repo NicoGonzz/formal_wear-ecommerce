@@ -83,6 +83,15 @@
           <h1 class="Form-Titles">Establece tu contraseña</h1>
   
           <div class="form-row">
+
+            <mat-form-field class="input">
+              <mat-label>Usuario</mat-label>
+              <input matInput formControlName="user" placeholder="Usuario" required>
+              <mat-error class="message_error" *ngIf="formPassword.get('user')?.hasError('required')">
+                {{ errorMessage }}
+              </mat-error>
+            </mat-form-field>
+
             <mat-form-field class="input">
               <mat-label>Contraseña</mat-label>
               <input matInput formControlName="password" placeholder="Ingrese su Contraseña" required
@@ -111,9 +120,8 @@
   
           <div class="submit-buttons">
             <button mat-button mat-raised-button matStepperPrevious color="primary btn" class="btn-save">Atras</button>
-            
             <button mat-button mat-raised-button matStepperNext color="primary btn" class="btn-save"
-              [disabled]="!isFormInvalid()" (click)="saveFormData()">Guardar</button>
+              [disabled]="isFormInvalid()" (click)="saveFormData()">Guardar</button>
           </div>
         </form>
       </mat-step>

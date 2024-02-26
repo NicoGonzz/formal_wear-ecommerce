@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatButtonModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -31,9 +33,10 @@ export class SignInComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private http: HttpClient,
     ) {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required,Validators.email]],
+      user: ['', [Validators.required,Validators.minLength(5)]],
       password: ['', [Validators.required]],
     });
     this.passwordVisible = false;
@@ -54,9 +57,20 @@ export class SignInComponent {
 
    public onSubmit(): void {
     if (this.form.valid) {
-      localStorage.setItem('email', this.form.value.email);
+      const formData = {
+        user: this.form.value.user,
+        password: this.form.value.password
+      };
+      localStorage.setItem('email', this.form.value.user);
       localStorage.setItem('password', this.form.value.password);
-      console.log('Ingreso Exitoso')
+      this.http.post("http://localhost:8000/login", formData).subscribe(
+        (response) => {
+          console.log('Respuesta del servidor:', response);
+        },
+        (error) => {
+          console.error('Error en la solicitud:', error);
+        }
+      );      console.log('Ingreso Exitoso')
     }else{
       console.log('Ingreso fallido')
     }

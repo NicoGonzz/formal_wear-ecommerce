@@ -5,9 +5,9 @@
            
             <span class="title">Ingresar</span>
             <mat-form-field class="input">
-                <mat-label>Correo</mat-label>
-                <input matInput formControlName="email" type="text">
-                <mat-error class="message_error" *ngIf="form.get('email')?.hasError('required')">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="user" type="text">
+                <mat-error class="message_error" *ngIf="form.get('user')?.hasError('required')">
                     {{ errorMessage }}
                 </mat-error>    
             </mat-form-field>

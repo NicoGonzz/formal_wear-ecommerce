@@ -4,11 +4,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { LoginPayload } from '../../interfaces/documentType.interface';
+import { AuthenticationServeService } from '../../services/authentication/authentication.serve.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,7 +29,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.scss'
+  styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent {
   form: FormGroup;
@@ -33,19 +39,17 @@ export class SignInComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private http: HttpClient,
-    ) {
+    private http: HttpClient
+  ) {
     this.form = this.formBuilder.group({
-      user: ['', [Validators.required,Validators.minLength(5)]],
+      user: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required]],
     });
     this.passwordVisible = false;
     this.errorMessage = 'El campo es requerido.';
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   public togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
@@ -53,26 +57,25 @@ export class SignInComponent {
 
   public redirectTo(page: string): void {
     this.router.navigate([`${page}`]);
-   }
+  }
 
-   public onSubmit(): void {
+  public onSubmit(): void {
     if (this.form.valid) {
-      const formData = {
-        user: this.form.value.user,
-        password: this.form.value.password
+      const body: LoginPayload = {
+        username: this.form.value.user,
+        password: this.form.value.password,
       };
-      localStorage.setItem('email', this.form.value.user);
-      localStorage.setItem('password', this.form.value.password);
-      this.http.post("http://localhost:8000/login", formData).subscribe(
-        (response) => {
-          console.log('Respuesta del servidor:', response);
-        },
-        (error) => {
-          console.error('Error en la solicitud:', error);
+
+      const authService = new AuthenticationServeService(this.http);
+      authService.login(body).subscribe((response) => {
+        const token = response.headers.get('Authorization');
+        if (token != null) {
+          authService.setToken(token);
         }
-      );      console.log('Ingreso Exitoso')
-    }else{
-      console.log('Ingreso fallido')
+        alert('Ingreso exitoso');
+      });
+    } else {
+      console.log('Ingreso fallido');
     }
   }
 }

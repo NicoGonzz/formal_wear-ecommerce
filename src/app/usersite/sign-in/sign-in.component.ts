@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+
 import {
   FormBuilder,
   FormGroup,
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginPayload } from '../../interfaces/documentType.interface';
 import { AuthenticationServeService } from '../../services/authentication/authentication.serve.service';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,6 +29,7 @@ import { AuthenticationServeService } from '../../services/authentication/authen
     MatButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxCaptchaModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
@@ -39,11 +42,12 @@ export class SignInComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.form = this.formBuilder.group({
       user: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required]],
+      recaptcha: ['', Validators.required]
     });
     this.passwordVisible = false;
     this.errorMessage = 'El campo es requerido.';
@@ -75,7 +79,7 @@ export class SignInComponent {
         alert('Ingreso exitoso');
       });
 
-      
+
     } else {
       console.log('Ingreso fallido');
     }

@@ -1,4 +1,4 @@
 export const environment = {
-    production:false,
-    apiUrl: 'http://192.168.10.19:8080'
+  production: true,
+  apiUrl: 'https://backend-e-commerce-ropa-formal.onrender.com'
 };

@@ -2,16 +2,16 @@
     <div class="info"></div>
     <div class="login">
         <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-           
+
             <span class="title">Ingresar</span>
             <mat-form-field class="input">
                 <mat-label>Usuario</mat-label>
                 <input matInput formControlName="user" type="text">
                 <mat-error class="message_error" *ngIf="form.get('user')?.hasError('required')">
                     {{ errorMessage }}
-                </mat-error>    
+                </mat-error>
             </mat-form-field>
-           
+
             <mat-form-field class="input">
                 <mat-label>Contraseña</mat-label>
                 <input matInput formControlName="password" type="password"
@@ -20,12 +20,15 @@
                   <mat-icon>remove_red_eye</mat-icon>
                 </button>
             </mat-form-field>
-            
+
             <div class="options">
                 <span class="remember-password" >¿Olvide mi contraseña?</span>
                 <span class="remember-password" (click)="redirectTo('sign-up')">Registrarse</span>
             </div>
-            
+        <ngx-recaptcha2 #captchaElem
+            [siteKey]="'6LdkktMpAAAAAM0WLsaOR29mt4q6Z0t5kf6IpyOo'"
+            formControlName="recaptcha">
+        </ngx-recaptcha2>
             <button mat-raised-button type="submit" color="primary btn" [disabled]="!form.valid">Ingresar ahora</button>
         </form>
     </div>

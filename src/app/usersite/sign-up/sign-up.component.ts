@@ -103,6 +103,7 @@ export class SignUpComponent {
       this.http.post(`${environment.apiUrl}/e/sing/up`, userData).subscribe(
         (result) => {
           console.log(result);
+          alert('Tu registro ha sido exitoso '+ userData.name);
           this.redirectTo('sign-in');
         },
         (error) => {

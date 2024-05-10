@@ -47,7 +47,7 @@ export class SignInComponent {
     this.form = this.formBuilder.group({
       user: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required]],
-      recaptcha: ['', Validators.required]
+      //recaptcha: ['', Validators.required]
     });
     this.passwordVisible = false;
     this.errorMessage = 'El campo es requerido.';
@@ -71,17 +71,25 @@ export class SignInComponent {
       };
 
       const authService = new AuthenticationServeService(this.http);
-      authService.login(body).subscribe((response) => {
-        const token = response.headers.get('Authorization');
-        if (token != null) {
-          authService.setToken(token);
+      authService.login(body).subscribe(
+        (response) => {
+          const token = response.headers.get('Authorization');
+          if (token != null) {
+            authService.setToken(token);
+          }
+          alert('Ingreso exitoso');
+        },
+        (error) => {
+          if (error.status === 403 || error.statusText === 'Forbidden') {
+            alert('Error en el servidor, por favor intenta de nuevo más tarde');
+          } else {
+            alert('User not exist');
+          }
         }
-        alert('Ingreso exitoso');
-      });
-
+      );
 
     } else {
-      console.log('Ingreso fallido');
+      alert('Ingreso erroneo, por favor ingresa las credenciales correctas');
     }
   }
 }

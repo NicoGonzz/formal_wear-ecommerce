@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPasswordStrengthModule } from "@angular-material-extensions/password-strength";
+
 import {
   FormBuilder,
   FormGroup,
@@ -34,6 +36,7 @@ import { environment } from '../../../../environment/environment';
     MatStepperModule,
     MatSelectModule,
     HttpClientModule,
+    MatPasswordStrengthModule
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
@@ -61,7 +64,6 @@ export class SignUpComponent {
     this.formPassword = this.formBuilder.group({
       user: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      secondpassword: ['', [Validators.required, Validators.minLength(8)]],
     });
     this.documentTypes = [
       { idDocumentType: '1', name: 'CC' },
@@ -112,5 +114,9 @@ export class SignUpComponent {
         }
       );
     }
+  }
+
+  onStrengthChanged(strength: number) {
+    console.log('Nivel de fortaleza de la contraseña:', strength);
   }
 }

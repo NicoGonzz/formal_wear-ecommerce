@@ -3,7 +3,7 @@
 .container {
     margin: auto;
   }
-  
+
   .stepper {
     margin-top: 50px !important;
     width: 90%;
@@ -32,58 +32,57 @@
     font-size: 1.5rem;
     margin-bottom: 30px;
   }
-  
+
   .form-row {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-  
     @media only screen and (min-width: 600px) {
         flex-direction: row;
     }
   }
-  
+
   .input {
     width: 100%;
     margin: 10px 0;
-  
+
     @media only screen and (min-width: 600px) {
         width: 400px;
         margin: auto;
     }
   }
-  
+
   .btn {
     width: 100%;
     margin: 10px 0;
-  
+
     @media only screen and (min-width: 600px) {
         width: 200px;
         margin: auto;
     }
   }
-  
+
   .input-file {
     display: flex;
     justify-content: center;
     flex-direction: column;
-  
+
     @media only screen and (min-width: 600px) {
         flex-direction: row;
         margin-bottom: 30px;
     }
   }
-  
+
   .form-check{
     margin-bottom: 10px;
-  
+
     span {
       cursor: pointer;
       text-align: justify;
       color: rgb(96, 96, 106);
     }
   }
-  
+
   .btn-file {
     width: 100%;
     text-align: center;
@@ -94,7 +93,7 @@
         margin-bottom: 0;
     }
   }
-  
+
   .submit-buttons {
     display: flex;
     flex-direction: column;
@@ -114,11 +113,10 @@
         justify-content: space-between;
     }
   }
-  
+
   // Tablet
   @media only screen and (min-width: 700px) {}
-  
+
   // PC
-  
+
   @media only screen and (min-width: 1000px) {}
-  
